@@ -20,8 +20,15 @@
         <button type="submit"
           :disabled="!channelOpen">Send</button>
       </form>
+
+      <h3>配信中</h3>
+      <video autoplay :srcObject.prop="localStream" style="background: black"></video>
+      <button v-on:click="onStreamMedia" :disabled="!channelOpen">Start</button>
+      <button v-on:click="stopStreamMedia" :disabled="!channelOpen">Stop</button>
       <h2>6. Received data:</h2>
       <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
+      <h3>受信中</h3>
+      <video autoplay :srcObject.prop="mediaStream" style="background: black"></video>
     </div>
   </div>
 </template>
@@ -48,6 +55,8 @@ export default {
       candidates: [],
       receiverCandidatesStr: undefined,
       channelOpen: false,
+      localStream: undefined, // 送信するストリーム
+      mediaStream: undefined, // 受信したストリーム
     }
   },
   mounted() {
@@ -80,14 +89,32 @@ export default {
       this.channel.send(this.sendMesage)
       this.sendMesage = ""
     },
+    async onStreamMedia() {
+      this.localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+      // this.channel.send(this.localStream)
+      this.localStream.getTracks().forEach(track => {
+        this.connection.addTrack(track, this.localStream)
+      })
+    },
+    async stopStreamMedia() {
+      if(this.localStream) {
+        this.localStream.getTracks().forEach(track => track.stop())
+        this.localStream = undefined
+      }
+    },
     connectPeers() {
       const config = {
+        offerToReceiveAudio: true,
+        offerToReceiveVideo: true,
         iceServers: [{
-          urls: this.iceServer,
+          urls: this.iceServer
         }]
       }
       this.connection = new RTCPeerConnection(config)
-
+      this.connection.ontrack = e => {
+        console.log("ontrack")
+        this.mediaStream = e.streams[0]
+      }
       this.channel = this.connection.createDataChannel("channel")
       this.channel.onmessage = this.handleMessage;
       this.channel.onopen = this.handlechannelStatusChange
@@ -108,6 +135,10 @@ export default {
         this.offer = offer
         this.connection.setLocalDescription(offer)
       })
+    },
+    handleconnectionTrack(e) {
+      console.log("handleconnectionTrack")
+      this.mediaStream = e.streams[0]
     },
     handlechannelStatusChange(e) {
       console.log('handlechannelStatusChange', e)
@@ -148,5 +179,4 @@ export default {
 h2{
   clear: both;
 }
-
 </style>
