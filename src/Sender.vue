@@ -3,13 +3,17 @@
     <div>
       <h1>Sender</h1>
       <h2>1. Offer</h2>
-      <textarea disabled cols="50" rows="10" v-model="offerStr"></textarea>
+      <div class="offer-area">
+      <textarea disabled cols="80" rows="10" v-model="offerStr" class="textarea"></textarea>
+      <p class="description">説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き</p>
+      </div>
+
       <h2>2. Paste Answer</h2>
-      <textarea cols="50" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
+      <textarea cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
       <h2>3. Sender Candidates</h2>
-      <textarea disabled cols="50" rows="10" v-model="candidateStr"></textarea>
+      <textarea disabled cols="80" rows="10" v-model="candidateStr"></textarea>
       <h2>4. Paste receiver candidates</h2>
-      <textarea cols="50" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
+      <textarea cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
       <h2>5. Send</h2>
       <form @submit.prevent="onSendMessage">
         <input type="text" cols="50" rows="10" v-model="sendMesage"/>
@@ -23,11 +27,13 @@
 </template>
 
 <script>
+import IceServerMixin from './IceServerMixin'
 export default {
-  name: 'App',
-  components: {
-    
-  },
+  mixins: [IceServerMixin],
+  name: 'Sender',
+  //props: {
+    //iceServer: { type: String }
+  //},
   data(){
     return {
       sendMesage: undefined,
@@ -77,7 +83,7 @@ export default {
     connectPeers() {
       const config = {
         iceServers: [{
-          urls: "stun:stun.l.google.com:19302",
+          urls: this.iceServer,
         }]
       }
       this.connection = new RTCPeerConnection(config)
@@ -127,3 +133,20 @@ export default {
   }
 }
 </script>
+
+<style>
+.textarea{
+  float: left;
+  width: 50%;
+}
+.description{
+  float:right;
+  background-color: lightcoral;
+  width: 45%;
+  height: 100%;
+}
+h2{
+  clear: both;
+}
+
+</style>

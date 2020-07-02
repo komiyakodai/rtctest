@@ -23,12 +23,13 @@
 </template>
 
 <script>
-
+import IceServerMixin from './IceServerMixin'
 export default {
-  name: 'App',
-  components: {
-    
-  },
+  mixins: [IceServerMixin],
+  name: 'Receiver',
+  // props: {
+  //   iceServer: {type: String}
+  // },
   data(){
     return {
       offerStr: undefined,
@@ -79,7 +80,7 @@ export default {
     connectPeers() {
       const config = {
         iceServers: [{
-          urls: "stun:stun.l.google.com:19302",
+          urls: this.iceServer,
         }]
       }
       this.connection = new RTCPeerConnection(config)

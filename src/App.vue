@@ -48,21 +48,24 @@ export default {
       this.recvMessage = ""
     },
     connectPeers() {
+      //NAT越えを手助けするユーティリティであるSTUNサーバ、TURNサーバのURLや認証情報を指定する
       const config = {
         iceServers: [{
           urls: "stun:stun.l.google.com:19302",
         }]
       }
-      this.localConnection = new RTCPeerConnection(config)
+      this.localConnection = new RTCPeerConnection(config)//データチャネルの生成
 
       this.sendChannel = this.localConnection.createDataChannel("sendChannel")
-      this.sendChannel.onmessage = this.handleReceiveMessage2;
-      this.sendChannel.onopen = this.handleSendChannelStatusChange
-      this.sendChannel.onclose = this.handleSendChannelStatusChange
+      this.sendChannel.onmessage = this.handleReceiveMessage2;//receive側からメッセージが来た時の処理(きたデータをsendMessageにセット)
+      this.sendChannel.onopen = this.handleSendChannelStatusChange//データチャネルがピア間で通信可能になったとき実行(ここではただのログ)
+      this.sendChannel.onclose = this.handleSendChannelStatusChange//通信が切断された時実行(ここではただのログ)
 
-      this.remoteConnection = new RTCPeerConnection(config)
-      this.remoteConnection.ondatachannel = this.receiveChannelCallback
+      this.remoteConnection = new RTCPeerConnection(config)//データチャネルの生成
+      this.remoteConnection.ondatachannel = this.receiveChannelCallback//localピアがデータチャネルを作成した場合実行
 
+
+//経路情報
       this.localConnection.onicecandidate = e => {
         console.log('localConnection.onicecandidate', e)
         !e.candidate
@@ -80,6 +83,7 @@ export default {
       this.startConnection()
       console.log('onconnect')
     },
+    //SDPの送信
     startConnection() {
       this.localConnection.createOffer()
       .then(offer =>  {
@@ -101,6 +105,10 @@ export default {
       .then(() => this.localConnection.setRemoteDescription(this.remoteConnection.localDescription))
       .catch(this.handleCreateDescriptionError);
     },
+
+
+
+
     handleSendChannelStatusChange(e) {
       console.log('handleSendChannelStatusChange', e)
     },
