@@ -7,6 +7,7 @@
         <h2>1. Offer</h2>
         <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" cols="80" rows="10" disabled v-model="offerStr"></textarea>
+        <button class="cope-button btn-square-pop" type="button" @click="copyOffer">copy</button>
       </div>
      
 
@@ -22,7 +23,7 @@
         <h2>3. Sender Candidates</h2>
         <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
-        <!-- <button class="cope-button btn-square-pop" type="button" @click="copySenderCandidates">copy</button> -->
+        <button class="cope-button btn-square-pop" type="button" @click="copySenderCandidates">copy</button>
       </div>
       <div class="section">
         <h2>4. Paste receiver candidates</h2>
@@ -32,20 +33,6 @@
         </div>
     </div>
     <div class="connunicatearea">
-      <div class="sbys">
-        <div class="sendarea">
-          <h2>5. Send</h2>
-          <form @submit.prevent="onSendMessage">
-            <input type="text" cols="50" rows="10" v-model="sendMesage"/>
-            <button class="btn-square-pop" type="submit"
-              :disabled="!channelOpen">Send</button>
-          </form>
-        </div>
-        <div>
-          <h2>6. Received data:</h2>
-          <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
-        </div>
-      </div>
       <h3>{{channelOpen ? "配信中" : "配信準備中"}}</h3>
       <video autoplay :srcObject.prop="localStream" style="background: black; width: 200px; height: 160px;"></video>
     </div>
@@ -202,12 +189,15 @@ export default {
 }
 .section{
   height: 300px;
-  margin :20px;
+  padding :20px;
+  flex-basis: 50%;
+  box-sizing: border-box;
   /* background-color: lightgreen; */
 }
 .sbys
 {
   display: flex;
+  flex-wrap: wrap;
 }
 .video{
   margin-right :10px;
