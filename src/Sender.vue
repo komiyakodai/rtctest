@@ -2,30 +2,51 @@
   <div>
     <div>
       <h1>Sender</h1>
+      <div class="sbys connectarea">
+      <div class="section">
+        <h2>1. Offer</h2>
+        <div class="description">説明書き</div>
+        <div class="sbys">
+        <textarea class="textarea" disabled cols="80" rows="10" v-model="offerStr"></textarea>
+        <!-- <button class="cope-button btn-square-pop" type="button" @click="copyOffer">copy</button> -->
+        </div>
+      </div>
+      </div>
+
       
+      <div class="section">
+        <h2>2. Paste Answer</h2>
+        <div class="description">説明書き</div>
+        <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
+      </div>
+
       
-      <h2>1. Offer</h2>
       <div class="section">
-      <textarea class="textarea" disabled cols="80" rows="10" v-model="offerStr"></textarea>
-      <div class="description">説明書き</div>
+        <h2>3. Sender Candidates</h2>
+        <div class="description">説明書き</div>
+        <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
+        <!-- <button class="cope-button btn-square-pop" type="button" @click="copySenderCandidates">copy</button> -->
       </div>
-
-      <h2>2. Paste Answer</h2>
       <div class="section">
-      <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
-      <div class="description">説明書き</div>
-      </div>
-
-      <h2>3. Sender Candidates</h2>
-      <div class="section">
-      <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
-      <div class="description">説明書き</div>
-      </div>
-
-      <h2>4. Paste receiver candidates</h2>
-      <div class="section">
-      <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
-      <div class="description">説明書き</div>
+        <h2>4. Paste receiver candidates</h2>
+          <div class="description">説明書き</div>
+          <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
+        </div>
+        </div>
+      
+      <div class="sbys">
+        <div class="sendarea">
+          <h2>5. Send</h2>
+          <form @submit.prevent="onSendMessage">
+            <input type="text" cols="50" rows="10" v-model="sendMesage"/>
+            <button class="btn-square-pop" type="submit"
+              :disabled="!channelOpen">Send</button>
+          </form>
+        </div>
+        <div>
+          <h2>6. Received data:</h2>
+          <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
+        </div>
       </div>
 
       <h2>5. Send</h2>
@@ -39,7 +60,6 @@
       <h2>6. Received data:</h2>
       <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
     </div>
-  </div>
 </template>
 
 <script>
@@ -62,6 +82,7 @@ export default {
       receiverCandidatesStr: undefined,
       channelOpen: false,
       localStream: undefined, // 送信するストリーム
+      text:undefined,
     }
   },
   mounted() {
@@ -152,24 +173,30 @@ export default {
     handleReceiveChannelStatusChange(e) {
       console.log('handleReceiveChannelStatusChange', e)
     },
+    copyOffer(){
+      this.text = document.getElementsByTagName("textarea")[0].value;
+      navigator.clipboard.writeText(this.text)
+    },
+    copySenderCandidates(){
+      this.text = document.getElementsByTagName("textarea")[2].value;
+      navigator.clipboard.writeText(this.text)
+    }
   }
 }
 </script>
 
-<style>
-.section{
-  height: 182px;
-}
+<style scoped>
+
 .textarea{
-  float: left;
-  width: 50%;
+  resize: none;
+  width:100%;
+  height:30px;
   padding: 0;
-  /* height: 400px; */
+  margin-right: 10px;
 }
 .description{
-  float:right;
   background-color: rgb(255, 255, 255);
-  width: 45%;
+  width: 100%;
   height: 162px;
   margin:0;
   border-radius: 15px;
@@ -179,8 +206,21 @@ export default {
 .offer-area{
   height: 130px;
 }
-
-h2{
-  clear: both;
+.section{
+  height: 250px;
+  /* background-color: lightgreen; */
+}
+.sbys
+{
+  display: flex;
+}
+.video{
+  margin-right :10px;
+}
+.sendarea{
+  margin-right: 0px;
+}
+.connectarea{
+  margin-bottom: 60px;
 }
 </style>

@@ -22,10 +22,10 @@ export default {
 }
 </script>
 
+
 <style>
 .app{
   background-color:#fffff0;
-  width: 1000px;
   margin: auto;
 }
 
@@ -44,6 +44,7 @@ export default {
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
+  outline: none;
 }
 
 .btn-square-pop:active {

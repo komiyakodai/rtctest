@@ -2,19 +2,47 @@
   <div>
     <div>
       <h1>Receiver</h1>
+      <div class="section">
+        <h2>1. Paste offer</h2>
+        <div class="sbys">
+        <textarea class="textarea" cols="50" rows="10" :disabled="Boolean(offerStr)"  v-model="offerStr"></textarea>
+        <div class="description">説明書き</div>
+        </div>
+      </div>
+
       
-      <h2>1. Paste offer</h2>
-      <textarea cols="50" rows="10" :disabled="Boolean(offerStr)"  v-model="offerStr"></textarea>
-      <h2>2. Answer</h2>
-      <textarea disabled cols="50" rows="10" v-model="answerStr"></textarea>
-      <h2>3. Paste sender candidates</h2>
-      <textarea cols="50" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
-      <h2>4. Receiver Candidates</h2>
-      <textarea disabled cols="50" rows="10" v-model="candidateStr"></textarea>
+      <div class="section">
+        <h2>2. Answer</h2>
+        <div class="sbys">
+        <textarea class="textarea" disabled cols="50" rows="10" v-model="answerStr"></textarea>
+        <div class="description">説明書き</div>
+        </div>
+        <button class="cope-button btn-square-pop" type="button" @click="copyAnswer">copy</button>
+      </div>
+
+      
+      <div class="section">
+        <h2>3. Paste sender candidates</h2>
+        <div class="sbys">
+        <textarea class="textarea" cols="50" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
+        <div class="description">説明書き</div>
+        </div>
+      </div>
+
+     
+      <div class="section">
+        <h2>4. Receiver Candidates</h2>
+        <div class="sbys">
+        <textarea class="textarea" disabled cols="50" rows="10" v-model="candidateStr"></textarea>
+        <div class="description">説明書き</div>
+        </div>
+        <button class="cope-button btn-square-pop" type="button" @click="copyReceiverCandidates">copy</button>
+      </div>
+
       <h2>5. Send</h2>
       <form @submit.prevent="onSendMessage">
         <input type="text" cols="50" rows="10" v-model="sendMesage"/>
-        <button type="submit"
+        <button class="btn-square-pop" type="submit"
           :disabled="!channelOpen">Send</button>
       </form>
       <h2>6. Received data:</h2>
@@ -45,6 +73,7 @@ export default {
       receiverCandidatesStr: undefined,
       channelOpen: false,
       mediaStream: undefined, // 受信したストリーム
+      text:undefined,
     }
   },
   mounted() {
@@ -127,6 +156,44 @@ export default {
         this.channelOpen = false
       }
     },
+     copyAnswer(){
+      this.text = document.getElementsByTagName("textarea")[1].value;
+      navigator.clipboard.writeText(this.text)
+    },
+    copyReceiverCandidates(){
+      this.text = document.getElementsByTagName("textarea")[3].value;
+      navigator.clipboard.writeText(this.text)
+    }
   }
 }
 </script>
+
+<style scoped>
+
+.textarea{
+  width: 50%;
+  padding: 0;
+  margin-right: 10px;
+
+}
+.description{
+  background-color: rgb(255, 255, 255);
+  width: 45%;
+  height: 162px;
+  margin:0;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: lightgoldenrodyellow;
+}
+.offer-area{
+  height: 130px;
+}
+.section{
+  height: 250px;
+  /* background-color: lightgreen; */
+}
+.sbys
+{
+  display: flex;
+}
+</style>
