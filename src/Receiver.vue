@@ -2,53 +2,52 @@
   <div>
     <div>
       <h1>Receiver</h1>
+      <div class="sbys">
       <div class="section">
         <h2>1. Paste offer</h2>
-        <div class="sbys">
+        <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" cols="50" rows="10" :disabled="Boolean(offerStr)"  v-model="offerStr"></textarea>
-        <div class="description">説明書き</div>
-        </div>
       </div>
 
       
       <div class="section">
         <h2>2. Answer</h2>
-        <div class="sbys">
+        <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" disabled cols="50" rows="10" v-model="answerStr"></textarea>
-        <div class="description">説明書き</div>
-        </div>
-        <button class="cope-button btn-square-pop" type="button" @click="copyAnswer">copy</button>
+        <!-- <button class="cope-button btn-square-pop" type="button" @click="copyAnswer">copy</button> -->
       </div>
 
       
       <div class="section">
         <h2>3. Paste sender candidates</h2>
-        <div class="sbys">
+        <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" cols="50" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
-        <div class="description">説明書き</div>
-        </div>
       </div>
 
      
       <div class="section">
         <h2>4. Receiver Candidates</h2>
-        <div class="sbys">
+        <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" disabled cols="50" rows="10" v-model="candidateStr"></textarea>
-        <div class="description">説明書き</div>
-        </div>
-        <button class="cope-button btn-square-pop" type="button" @click="copyReceiverCandidates">copy</button>
+        <!-- <button class="cope-button btn-square-pop" type="button" @click="copyReceiverCandidates">copy</button> -->
       </div>
-
+      </div>
+      <div class="connunicatearea">
+      <div class="sbys">
+      <div class="sendarea">
       <h2>5. Send</h2>
       <form @submit.prevent="onSendMessage">
         <input type="text" cols="50" rows="10" v-model="sendMesage"/>
         <button class="btn-square-pop" type="submit"
           :disabled="!channelOpen">Send</button>
       </form>
+      </div>
       <h2>6. Received data:</h2>
+       <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
+      </div>
       <h3>{{channelOpen ? "受信中" : "受信準備中"}}</h3>
       <video autoplay :srcObject.prop="mediaStream" style="background: black; width: 200px; height: 160px;" muted></video>
-      <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -171,29 +170,48 @@ export default {
 <style scoped>
 
 .textarea{
-  width: 50%;
+  resize: none;
+  width:100%;
+  height:30px;
   padding: 0;
-  margin-right: 10px;
-
+  border-radius: 5px;
 }
 .description{
   background-color: rgb(255, 255, 255);
-  width: 45%;
+  width: 100%;
   height: 162px;
   margin:0;
   border-radius: 15px;
-  padding: 10px;
+  padding: 0px;
   background-color: lightgoldenrodyellow;
+  margin-bottom: 10px;
 }
 .offer-area{
   height: 130px;
 }
 .section{
-  height: 250px;
+  height: 300px;
+  margin :20px;
   /* background-color: lightgreen; */
 }
 .sbys
 {
   display: flex;
+}
+.video{
+  margin-right :10px;
+}
+.sendarea{
+  margin-right: 100px;
+}
+.connectarea{
+  margin-bottom: 60px;
+}
+p{
+  padding: 10px;
+}
+.connunicatearea{
+  margin: 0 20px 0 20px;
+  padding-bottom: 100px;
 }
 </style>

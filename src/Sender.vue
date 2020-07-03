@@ -2,38 +2,36 @@
   <div>
     <div>
       <h1>Sender</h1>
-      <div class="sbys connectarea">
+      <div class="sbys">
       <div class="section">
         <h2>1. Offer</h2>
-        <div class="description">説明書き</div>
-        <div class="sbys">
-        <textarea class="textarea" disabled cols="80" rows="10" v-model="offerStr"></textarea>
-        <!-- <button class="cope-button btn-square-pop" type="button" @click="copyOffer">copy</button> -->
-        </div>
+        <div class="description"><p>説明書き</p></div>
+        <textarea class="textarea" cols="80" rows="10" disabled v-model="offerStr"></textarea>
       </div>
-      </div>
+     
 
       
       <div class="section">
         <h2>2. Paste Answer</h2>
-        <div class="description">説明書き</div>
+        <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
       </div>
 
       
       <div class="section">
         <h2>3. Sender Candidates</h2>
-        <div class="description">説明書き</div>
+        <div class="description"><p>説明書き</p></div>
         <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
         <!-- <button class="cope-button btn-square-pop" type="button" @click="copySenderCandidates">copy</button> -->
       </div>
       <div class="section">
         <h2>4. Paste receiver candidates</h2>
-          <div class="description">説明書き</div>
+          <div class="description"><p>説明書き</p></div>
           <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
         </div>
         </div>
-      
+    </div>
+    <div class="connunicatearea">
       <div class="sbys">
         <div class="sendarea">
           <h2>5. Send</h2>
@@ -48,17 +46,12 @@
           <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
         </div>
       </div>
-
-      <h2>5. Send</h2>
-      <form @submit.prevent="onSendMessage">
-        <input type="text" cols="50" rows="10" v-model="sendMesage"/>
-        <button class="btn-square-pop" type="submit"
-          :disabled="!channelOpen">Send</button>
-      </form>
       <h3>{{channelOpen ? "配信中" : "配信準備中"}}</h3>
       <video autoplay :srcObject.prop="localStream" style="background: black; width: 200px; height: 160px;"></video>
-      <h2>6. Received data:</h2>
-      <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
+    </div>
+
+      
+      
     </div>
 </template>
 
@@ -192,7 +185,7 @@ export default {
   width:100%;
   height:30px;
   padding: 0;
-  margin-right: 10px;
+  border-radius: 5px;
 }
 .description{
   background-color: rgb(255, 255, 255);
@@ -200,14 +193,16 @@ export default {
   height: 162px;
   margin:0;
   border-radius: 15px;
-  padding: 10px;
+  padding: 0px;
   background-color: lightgoldenrodyellow;
+  margin-bottom: 10px;
 }
 .offer-area{
   height: 130px;
 }
 .section{
-  height: 250px;
+  height: 300px;
+  margin :20px;
   /* background-color: lightgreen; */
 }
 .sbys
@@ -218,9 +213,16 @@ export default {
   margin-right :10px;
 }
 .sendarea{
-  margin-right: 0px;
+  margin-right: 100px;
 }
 .connectarea{
   margin-bottom: 60px;
+}
+p{
+  padding: 10px;
+}
+.connunicatearea{
+  margin: 0 20px 0 20px;
+  padding-bottom: 100px;
 }
 </style>
