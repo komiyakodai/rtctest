@@ -2,6 +2,7 @@
   <div>
     <div>
       <h1>Receiver</h1>
+      
       <h2>1. Paste offer</h2>
       <textarea cols="50" rows="10" :disabled="Boolean(offerStr)"  v-model="offerStr"></textarea>
       <h2>2. Answer</h2>
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import 'normalize.css'
 import IceServerMixin from './IceServerMixin'
 export default {
   mixins: [IceServerMixin],

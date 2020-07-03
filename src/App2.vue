@@ -1,13 +1,16 @@
 <template>
   <div class="app">
-    <router-link :to="{name: 'sender'}" tag="button">sender</router-link>
-    <router-link :to="{name: 'receiver'}" tag="button">receiver</router-link>
-    <router-link to="/" tag="button">index</router-link>
-    <router-view class="content"></router-view>
+    <div class="buttons">
+      <router-link class="btn-square-pop" :to="{name: 'sender'}" tag="button">sender</router-link>
+      <router-link class="btn-square-pop" :to="{name: 'receiver'}" tag="button">receiver</router-link>
+      <router-link class="btn-square-pop" to="/" tag="button">index</router-link>
+      <router-view class="content"></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import 'normalize.css'
 
 export default {
   name: 'App',
@@ -21,13 +24,31 @@ export default {
 
 <style>
 .app{
-  background-color: rgb(197, 242, 178);
+  background-color:#fffff0;
   width: 1000px;
   margin: auto;
 }
 
 .content{
   margin: 100px;
+}
+
+.btn-square-pop {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: #fd9535;/*背景色*/
+  border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+
+.btn-square-pop:active {
+  border-bottom: solid 2px #fd9535;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
 </style>

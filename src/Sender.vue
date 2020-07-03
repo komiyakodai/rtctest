@@ -2,22 +2,36 @@
   <div>
     <div>
       <h1>Sender</h1>
+      
+      
       <h2>1. Offer</h2>
-      <div class="offer-area">
-      <textarea disabled cols="80" rows="10" v-model="offerStr" class="textarea"></textarea>
-      <p class="description">説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き</p>
+      <div class="section">
+      <textarea class="textarea" disabled cols="80" rows="10" v-model="offerStr"></textarea>
+      <div class="description">説明書き</div>
       </div>
 
       <h2>2. Paste Answer</h2>
-      <textarea cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
+      <div class="section">
+      <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
+      <div class="description">説明書き</div>
+      </div>
+
       <h2>3. Sender Candidates</h2>
-      <textarea disabled cols="80" rows="10" v-model="candidateStr"></textarea>
+      <div class="section">
+      <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
+      <div class="description">説明書き</div>
+      </div>
+
       <h2>4. Paste receiver candidates</h2>
-      <textarea cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
+      <div class="section">
+      <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
+      <div class="description">説明書き</div>
+      </div>
+
       <h2>5. Send</h2>
       <form @submit.prevent="onSendMessage">
         <input type="text" cols="50" rows="10" v-model="sendMesage"/>
-        <button type="submit"
+        <button class="btn-square-pop" type="submit"
           :disabled="!channelOpen">Send</button>
       </form>
       <h3>{{channelOpen ? "配信中" : "配信準備中"}}</h3>
@@ -143,16 +157,29 @@ export default {
 </script>
 
 <style>
+.section{
+  height: 182px;
+}
 .textarea{
   float: left;
   width: 50%;
+  padding: 0;
+  /* height: 400px; */
 }
 .description{
   float:right;
-  background-color: lightcoral;
+  background-color: rgb(255, 255, 255);
   width: 45%;
-  height: 100%;
+  height: 162px;
+  margin:0;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: lightgoldenrodyellow;
 }
+.offer-area{
+  height: 130px;
+}
+
 h2{
   clear: both;
 }
