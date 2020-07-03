@@ -2,29 +2,39 @@
   <div>
     <div>
       <h1>Sender</h1>
-      <h2>1. Offer</h2>
-      <div class="offer-area">
-      <textarea disabled cols="80" rows="10" v-model="offerStr" class="textarea"></textarea>
-      <p class="description">説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き説明書き</p>
+      <div class="sbys">
+        <div class="section">
+          <h2>1. Offer</h2>
+          <div class="description"><p>説明書き</p></div>
+          <textarea class="textarea" cols="80" rows="10" disabled v-model="offerStr"></textarea>
+          <button class="cope-button btn-square-pop" type="button" @click="copyOffer">copy</button>
+        </div>
+     
+        <div class="section">
+          <h2>2. Paste Answer</h2>
+          <div class="description"><p>説明書き</p></div>
+          <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
+        </div>
+      
+        <div class="section">
+          <h2>3. Sender Candidates</h2>
+          <div class="description"><p>説明書き</p></div>
+          <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
+          <button class="cope-button btn-square-pop" type="button" @click="copySenderCandidates">copy</button>
+        </div>
+
+        <div class="section">
+          <h2>4. Paste receiver candidates</h2>
+          <div class="description"><p>説明書き</p></div>
+          <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
+        </div>
       </div>
 
-      <h2>2. Paste Answer</h2>
-      <textarea cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
-      <h2>3. Sender Candidates</h2>
-      <textarea disabled cols="80" rows="10" v-model="candidateStr"></textarea>
-      <h2>4. Paste receiver candidates</h2>
-      <textarea cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
-      <h2>5. Send</h2>
-      <form @submit.prevent="onSendMessage">
-        <input type="text" cols="50" rows="10" v-model="sendMesage"/>
-        <button type="submit"
-          :disabled="!channelOpen">Send</button>
-      </form>
-      <h3>{{channelOpen && !!localStream ? "配信中" : "配信準備中"}}</h3>
-      <p v-if="!useMedia">カメラを許可してください</p>
-      <video autoplay :srcObject.prop="localStream" style="background: black; width: 200px; height: 160px;"></video>
-      <h2>6. Received data:</h2>
-      <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
+      <div class="connunicatearea">      
+        <h3>{{channelOpen && !!localStream ? "配信中" : "配信準備中"}}</h3>
+        <p v-if="!useMedia">カメラを許可してください</p>
+        <video autoplay :srcObject.prop="localStream" style="background: black; width: 200px; height: 160px;"></video>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +59,7 @@ export default {
       receiverCandidatesStr: undefined,
       channelOpen: false,
       localStream: undefined, // 送信するストリーム
+      text:undefined,
       useMedia: false
     }
   },
@@ -145,22 +156,66 @@ export default {
     handleReceiveChannelStatusChange(e) {
       console.log('handleReceiveChannelStatusChange', e)
     },
+    copyOffer(){
+      this.text = document.getElementsByTagName("textarea")[0].value;
+      navigator.clipboard.writeText(this.text)
+    },
+    copySenderCandidates(){
+      this.text = document.getElementsByTagName("textarea")[2].value;
+      navigator.clipboard.writeText(this.text)
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
+
 .textarea{
-  float: left;
-  width: 50%;
+  resize: none;
+  width:100%;
+  height:30px;
+  padding: 0;
+  border-radius: 5px;
 }
 .description{
-  float:right;
-  background-color: lightcoral;
-  width: 45%;
-  height: 100%;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 162px;
+  margin:0;
+  border-radius: 15px;
+  padding: 0px;
+  background-color: lightgoldenrodyellow;
+  margin-bottom: 10px;
 }
-h2{
-  clear: both;
+.offer-area{
+  height: 130px;
+}
+.section{
+  height: 300px;
+  padding :20px;
+  flex-basis: 50%;
+  box-sizing: border-box;
+  /* background-color: lightgreen; */
+}
+.sbys
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+.video{
+  margin-right :10px;
+}
+.sendarea{
+  margin-right: 100px;
+}
+.connectarea{
+  margin-bottom: 60px;
+}
+p{
+  padding: 10px;
+}
+.connunicatearea{
+  margin: 0 20px 0 20px;
+  padding-bottom: 100px;
 }
 </style>

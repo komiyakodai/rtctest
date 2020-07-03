@@ -22,6 +22,7 @@
 
 <script>
 //import Send from './components/HelloWorld.vue'
+import 'normalize.css'
 
 export default {
   name: 'App',
