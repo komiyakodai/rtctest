@@ -20,7 +20,8 @@
         <button type="submit"
           :disabled="!channelOpen">Send</button>
       </form>
-      <h3>{{channelOpen ? "配信中" : "配信準備中"}}</h3>
+      <h3>{{channelOpen && !!localStream ? "配信中" : "配信準備中"}}</h3>
+      <p v-if="!useMedia">カメラを許可してください</p>
       <video autoplay :srcObject.prop="localStream" style="background: black; width: 200px; height: 160px;"></video>
       <h2>6. Received data:</h2>
       <p v-for="(msg, idx) in receivedMessages" :key="idx">{{msg}}</p>
@@ -48,6 +49,7 @@ export default {
       receiverCandidatesStr: undefined,
       channelOpen: false,
       localStream: undefined, // 送信するストリーム
+      useMedia: false
     }
   },
   mounted() {
@@ -81,7 +83,6 @@ export default {
       this.sendMesage = ""
     },
     async connectPeers() {
-      this.localStream = await navigator.mediaDevices.getUserMedia({audio: false, video: true})
       const config = {
         offerToReceiveAudio: 1,
         offerToReceiveVideo: 0,
@@ -101,7 +102,13 @@ export default {
         }
       }
 
-      this.localStream.getTracks().forEach(track => this.connection.addTrack(track, this.localStream))
+      try {
+        this.localStream = await navigator.mediaDevices.getUserMedia({audio: false, video: true})
+        this.localStream.getTracks().forEach(track => this.connection.addTrack(track, this.localStream))
+        this.useMedia = true
+      } catch {
+        this.localStream = undefined
+      }
 
       this.startConnection()
       console.log('onconnect')
