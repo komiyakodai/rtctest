@@ -3,7 +3,6 @@
     <div class="buttons">
       <router-link class="btn-square-pop" :to="{name: 'sender'}" tag="button">sender</router-link>
       <router-link class="btn-square-pop" :to="{name: 'receiver'}" tag="button">receiver</router-link>
-      <router-link class="btn-square-pop" to="/" tag="button">index</router-link>
       <router-view class="content"></router-view>
     </div>
   </div>
@@ -30,7 +29,7 @@ export default {
 }
 
 .content{
-  margin: 100px;
+  margin: 10px;
 }
 
 .btn-square-pop {

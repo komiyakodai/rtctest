@@ -19,6 +19,10 @@ const routes = [
          name: 'receiver',
          props: true
       },
+      { 
+          path: '/', 
+          redirect: '/sender' 
+      },
 ]
 
 const router = new VueRouter({

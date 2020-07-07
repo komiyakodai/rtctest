@@ -1,12 +1,15 @@
 <template>
   <div>
     <div>
-      <h1>Receiver</h1>
+      <h1 class="title">Receiver</h1>
       <div class="sbys">
         <div class="section">
           <h2>1. Paste offer</h2>
           <div class="description">
-            <p>説明書き</p>
+            <p>
+              SDPオファーを受け取ったレシーバ側はセンダー側の情報をセットし、自身の同様な情報が入ったSDPアンサーを生成します。
+              隣のAnswerエリアにSDPアンサーができていることを確認してください。
+            </p>
           </div>
           <textarea
             class="textarea"
@@ -20,7 +23,9 @@
         <div class="section">
           <h2>2. Answer</h2>
           <div class="description">
-            <p>説明書き</p>
+            <p>
+              SDPアンサーをコピー後、センダー側のPaste Answerエリアにペーストし、センダー側にレシーバ側の情報を伝えましょう。
+            </p>
           </div>
           <textarea class="textarea" disabled cols="50" rows="10" v-model="answerStr"></textarea>
           <button class="cope-button btn-square-pop" type="button" @click="copyAnswer">copy</button>
@@ -29,7 +34,7 @@
         <div class="section">
           <h2>3. Paste sender candidates</h2>
           <div class="description">
-            <p>説明書き</p>
+            <p>レシーバ側はセンダー側のIP/Portの候補リストを受け取ります。</p>
           </div>
           <textarea
             class="textarea"
@@ -43,7 +48,7 @@
         <div class="section">
           <h2>4. Receiver Candidates</h2>
           <div class="description">
-            <p>説明書き</p>
+            <p>レシーバ側のIP/portの候補をセンダー側に伝えるため、コピーしてセンダー側のPaste receiver candidatesエリアにペーストしてください。</p>
           </div>
           <textarea class="textarea" disabled cols="50" rows="10" v-model="candidateStr"></textarea>
           <button
@@ -230,5 +235,8 @@ p {
 .connunicatearea {
   margin: 0 20px 0 20px;
   padding-bottom: 100px;
+}
+.title{
+  margin:0px;
 }
 </style>

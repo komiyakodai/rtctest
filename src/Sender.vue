@@ -1,31 +1,53 @@
 <template>
   <div>
     <div>
-      <h1>Sender</h1>
+      <h1 class="title">Sender</h1>
       <div class="sbys">
         <div class="section">
           <h2>1. Offer</h2>
-          <div class="description"><p>説明書き</p></div>
+          <div class="description">
+            <p>
+              リモートピアと通信をスタートするにあたりSDPオファーを生成します。SDPオファーにはメディアの形式、IPアドレス、ポート番号、通信帯域などの通信に必要な各種情報が含まれており、
+              それをリモートピアに伝えることでリモートピアはこちら側の情報を把握します。下のコピーボタンを押してコピーし、それをレシーバ側のPaste offerエリアにペーストしてみましょう。
+            </p>
+          </div>
           <textarea class="textarea" cols="80" rows="10" disabled v-model="offerStr"></textarea>
           <button class="cope-button btn-square-pop" type="button" @click="copyOffer">copy</button>
         </div>
      
         <div class="section">
           <h2>2. Paste Answer</h2>
-          <div class="description"><p>説明書き</p></div>
+          <div class="description">
+            <p>
+              SDPアンサーを得たセンダー側はその情報をセットします。これでセンダー側とレシーバ側は通信に必要なお互いの情報を把握することができました。
+            </p>
+          </div>
           <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(answerStr)" v-model="answerStr"></textarea>
         </div>
       
         <div class="section">
           <h2>3. Sender Candidates</h2>
-          <div class="description"><p>説明書き</p></div>
+          <div class="description">
+            <p>
+              ピア間で通信を確立するためはその通信経路を決定する必要があります。
+              その通信経路の決定を行うものがICEアルゴリズムです。
+              まず初めに、お互いのピアは接続するために試すことができるIPアドレスとポートのリストを交換します。
+              センダー側のICEをコピーしてレシーバ側のPaste sender candidatesエリアにペーストしてください。</p>
+          </div>
           <textarea class="textarea" disabled cols="80" rows="10" v-model="candidateStr"></textarea>
           <button class="cope-button btn-square-pop" type="button" @click="copySenderCandidates">copy</button>
         </div>
 
         <div class="section">
           <h2>4. Paste receiver candidates</h2>
-          <div class="description"><p>説明書き</p></div>
+          <div class="description">
+            <p>
+              レシーバ側の情報をここにペーストすることで、お互いのピアの試すことのできるIP/portの候補が出揃いました。
+              その後、その組み合わせで接続性チェックをすることで接続可能な通信経路の候補を割り出し、最も適しているものを通信経路として決定します。
+              以上でピア間での通信を確立することができました。
+              ペーストした後、レシーバ側でカメラ画像が受信できていることを確認してください。
+              </p>
+          </div>
           <textarea class="textarea" cols="80" rows="10" :disabled="Boolean(receiverCandidatesStr)" v-model="receiverCandidatesStr"></textarea>
         </div>
       </div>
@@ -215,7 +237,11 @@ p{
   padding: 10px;
 }
 .connunicatearea{
-  margin: 0 20px 0 20px;
+  margin: 40px 20px 0 20px;
   padding-bottom: 100px;
+}
+
+.title{
+  margin:0px;
 }
 </style>
