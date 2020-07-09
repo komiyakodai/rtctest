@@ -1,10 +1,6 @@
 <template>
   <div class="app">
-    <div class="buttons">
-      <router-link class="btn-square-pop" :to="{name: 'sender'}" tag="button">sender</router-link>
-      <router-link class="btn-square-pop" :to="{name: 'receiver'}" tag="button">receiver</router-link>
-      <router-view class="content"></router-view>
-    </div>
+    <router-view class="content"></router-view>
   </div>
 </template>
 
@@ -23,13 +19,17 @@ export default {
 
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+}
 .app{
   background-color:#fffff0;
-  margin: auto;
+  margin: 0;
 }
 
 .content{
-  margin: 10px;
+  padding: 10px;
 }
 
 .btn-square-pop {
