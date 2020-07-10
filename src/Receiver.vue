@@ -1,9 +1,10 @@
 <template>
-  <div　class="wrap">
+  <div class="wrap">
     <div class="buttons">
       <router-link class="btn-square-pop" :to="{name: 'sender'}" tag="button">sender</router-link>
       <router-link class="btn-square-pop" :to="{name: 'receiver'}" tag="button">receiver</router-link>
     </div>
+
     <div>
       <h1 class="title">Receiver</h1>
       <div class="sbys">
@@ -61,7 +62,9 @@
             @click="copyReceiverCandidates"
           >copy</button>
         </div>
+
       </div>
+      
       <div class="connunicatearea">
         <h3>{{channelOpen ? "受信中" : "受信準備中"}}</h3>
         <video
