@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div　class="wrap">
+    <div class="buttons">
+      <router-link class="btn-square-pop" :to="{name: 'sender'}" tag="button">sender</router-link>
+      <router-link class="btn-square-pop" :to="{name: 'receiver'}" tag="button">receiver</router-link>
+    </div>
     <div>
       <h1 class="title">Receiver</h1>
       <div class="sbys">
@@ -203,7 +207,7 @@ export default {
   margin: 0;
   border-radius: 15px;
   padding: 0px;
-  background-color: lightgoldenrodyellow;
+  background-color: rgb(205, 255, 205);
   margin-bottom: 10px;
 }
 .offer-area {
@@ -239,4 +243,9 @@ p {
 .title{
   margin:0px;
 }
+
+.wrap{
+  background-color: rgba(194, 255, 235, 0.379);
+}
+
 </style>

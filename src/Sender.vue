@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="buttons">
+      <router-link class="btn-square-pop" :to="{name: 'sender'}" tag="button">sender</router-link>
+      <router-link class="btn-square-pop" :to="{name: 'receiver'}" tag="button">receiver</router-link>
+    </div>
     <div>
       <h1 class="title">Sender</h1>
       <div class="sbys">
@@ -238,7 +242,7 @@ p{
 }
 .connunicatearea{
   margin: 40px 20px 0 20px;
-  padding-bottom: 100px;
+  padding-bottom: 0px;
 }
 
 .title{
